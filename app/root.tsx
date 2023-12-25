@@ -1,5 +1,5 @@
-import { cssBundleHref } from "@remix-run/css-bundle";
-import type { LinksFunction } from "@remix-run/node";
+import styles from "../tailwind.css";
+import type { LinksFunction, MetaFunction } from "@remix-run/node";
 import {
   Links,
   LiveReload,
@@ -8,9 +8,20 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import Layout from "./components/Layout";
 
 export const links: LinksFunction = () => [
-  ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
+  { rel: "stylesheet", href: styles },
+];
+
+export const meta: MetaFunction = () => [
+  { title: "Cricri Curls" },
+  {
+    property: "og:title",
+    content: "Cricri Curls",
+  },
+  { name: "description", content: "Curly haired products for the sexy ones" },
+  { charSet: "utf-8" }
 ];
 
 export default function App() {
@@ -22,8 +33,10 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body>
-        <Outlet />
+      <body className="">
+        <Layout>
+          <Outlet />
+        </Layout>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
