@@ -3,7 +3,7 @@ import { loader } from "../root";
 
 const Header = () => {
   const data = useRouteLoaderData<typeof loader>("root");
-  const cartTotal = data && data?.cart.totalQuantity;
+  const cartTotal = data?.cart.totalQuantity;
 
   return (
     <div className="flex justify-between px-0 md:px-6 lg:px-10 py-6 shadow">
