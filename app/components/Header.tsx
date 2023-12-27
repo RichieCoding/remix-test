@@ -1,14 +1,24 @@
-import { Link } from "@remix-run/react";
+import { Link, useRouteLoaderData } from "@remix-run/react";
+import { loader } from "../root";
 
 const Header = () => {
+  const data = useRouteLoaderData<typeof loader>("root");
+  const cartTotal = data && data?.cart.totalQuantity;
+
   return (
-    <div className="flex justify-between px-8 py-6 shadow">
+    <div className="flex justify-between px-0 md:px-6 lg:px-10 py-6 shadow">
       <div>
-        <Link to="/" className="uppercase">Cricri Curls</Link>
+        <Link to="/" className="uppercase">
+          Cricri Curls
+        </Link>
       </div>
       <nav className="flex justify-between gap-6 uppercase">
-        <Link to="/products">Shop</Link>
-        <Link to="/products">Routine</Link>
+        <Link prefetch="intent" to="/products">
+          Shop
+        </Link>
+        <Link prefetch="intent" to="/products">
+          Routine
+        </Link>
         <Link to="/products">About</Link>
       </nav>
       <div className="flex gap-4">
@@ -58,8 +68,15 @@ const Header = () => {
           </button>
         </div>
         <div>
-          <button type="button" aria-label="Open cart">
-            <svg 
+          <button type="button" aria-label="Open cart" className="relative">
+            <span
+              className={`absolute -top-3  ${
+                Number(cartTotal) > 9 ? "-right-4" : "-right-2"
+              }`}
+            >
+              {cartTotal}
+            </span>
+            <svg
               width="24"
               height="24"
               viewBox="0 0 24 24"

@@ -11,7 +11,7 @@ type Props = {
 
 const ProductCard = ({ image, price, title, handle }: Props) => {
   return (
-    <Link to={`/products/${handle}`} className="border ">
+    <Link prefetch="intent" to={`/products/${handle}`} className="border ">
       <div>
         <picture>
           <img
